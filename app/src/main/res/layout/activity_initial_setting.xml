@@ -7,9 +7,11 @@
     tools:context=".InitialSetting">
 
     <TextView
+
+        android:id="@+id/InitialSet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="初期設定"
+        android:text="@string/InitialSet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -17,71 +19,71 @@
         app:layout_constraintVertical_bias="0.032" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/InitialSetNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="車の基本情報を登録する"
+        android:text="@string/InitialSetNote"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="55dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/MakerName"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
-        android:text="メーカー"
+        android:text="@string/MakerName"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="99dp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/CarName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="車名"
+        android:text="@string/CarName"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="167dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/CarImage"
         android:layout_width="wrap_content"
         android:layout_height="18dp"
-        android:text="車の画像"
+        android:text="@string/CarImage"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="234dp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edit_MakerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="@string/edit_MakerName"
         tools:layout_editor_absoluteX="108dp"
         tools:layout_editor_absoluteY="85dp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edit_CarName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="@string/edit_CarName"
         tools:layout_editor_absoluteX="108dp"
         tools:layout_editor_absoluteY="155dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/bt_SetRegist"
         android:layout_width="214dp"
         android:layout_height="48dp"
-        android:text="登録する"
-        tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="400dp" />
+        android:text="@string/bt_SetRegist"
+        tools:layout_editor_absoluteX="83dp"
+        tools:layout_editor_absoluteY="414dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/bt_TakePic"
         android:layout_width="154dp"
         android:layout_height="48dp"
-        android:text="カメラで撮影する"
+        android:text="@string/bt_TakePic"
         tools:layout_editor_absoluteX="115dp"
-        tools:layout_editor_absoluteY="306dp" />
+        tools:layout_editor_absoluteY="245dp" />
 
 </android.support.constraint.ConstraintLayout>

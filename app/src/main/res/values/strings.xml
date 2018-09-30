@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Car Maintenance</string>
+    <string name="InitialSet">初期設定</string>
+    <string name="InitialSetNote">車の基本情報を登録する</string>
+    <string name="MakerName">メーカー</string>
+    <string name="CarName">車名</string>
+    <string name="CarImage">車の画像</string>
+    <string name="edit_MakerName">入力してください</string>
+    <string name="edit_CarName">入力してください</string>
+    <string name="bt_SetRegist">登録する</string>
+    <string name="bt_TakePic">カメラで撮影する</string>
+
+
+
 </resources>
