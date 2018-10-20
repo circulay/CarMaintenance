@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -153,6 +154,15 @@ public class InitialSetting extends AppCompatActivity  {
 
         //アクティビティ起動
         startActivityForResult(intent, 200);
+    }
+
+    //バックボタン無効化（スプラッシュ画面に戻らない）
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }
