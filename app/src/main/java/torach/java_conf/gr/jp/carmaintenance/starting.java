@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.Window;
 
 public class starting extends AppCompatActivity {
 
