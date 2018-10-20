@@ -1,15 +1,25 @@
 package torach.java_conf.gr.jp.carmaintenance;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import java.util.Date;
+
+import java.text.SimpleDateFormat;
 
 public class InitialSetting extends AppCompatActivity  {
 
@@ -23,6 +33,9 @@ public class InitialSetting extends AppCompatActivity  {
     EditText input_CarName;
     String input_MakerNameStr;
     String input_CarNameStr;
+
+    //ストレージ保存画像URI格納
+    private Uri _imageUri;
 
 
 
@@ -60,7 +73,7 @@ public class InitialSetting extends AppCompatActivity  {
             switch(id) {
                 //カメラ作動
                 case R.id.bt_TakePic:
-                    TakePictues();
+                    TakePictures();
                     break;
 
                 //登録ボタン
@@ -78,26 +91,66 @@ public class InitialSetting extends AppCompatActivity  {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //カメラアプリとの連携からの戻りでかつ撮影成功の場合
         if(requestCode == 200 && resultCode == RESULT_OK) {
-            //撮影された画像のビットマップデータ取得
-            Bitmap bitmap = data.getParcelableExtra("data");
-            //画像を表示するImageView
+            //画像を表示するImageView取得
             ImageView ivCamera = findViewById(R.id.ivCamera);
-            //撮影された画像をImageViewに設定
-            ivCamera.setImageBitmap(bitmap);
+            //フイールドの画像URIをImageViewに設定
+            ivCamera.setImageURI(_imageUri);
         }
     }
 
-    /*
-    public void onCameraImageClick(View view) {
-        //インテントオブジェクト生成
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //アクティビティ起動
-        startActivityForResult(intent, 200);
-    }*/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        if(requestCode == 2000 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        {
+            //再度カメラ起動
+            TakePictures();
+        }
+    }
 
-    public void TakePictues() {
-        //インテントオブジェクト生成
+
+    public void TakePictures() {
+        //Write_EXTERNAL_STORAGE許可あり
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+            //write_external_permission許可ダイアログ表示 リスエストコードは2000
+            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(this, permissions, 2000);
+        }
+
+        //日時データ
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+        //現在日時取得
+        Date now = new Date(System.currentTimeMillis());
+
+        //取得データをyyyyMMddHHmmssに整形した文字列を生成
+        String nowStr = dateFormat.format(now);
+
+        //ストレージに格納する画像のファイル名を生成
+        String fileName = "PhotoData_" + nowStr + ".jpg";
+
+        //contentValuesオブジェクト
+        ContentValues values = new ContentValues();
+
+        //画像ファイル名設定
+        values.put(MediaStore.Images.Media.TITLE, fileName);
+
+        //画像フィル種類設定
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+
+        //ContentResolverオブジェクト生成
+        ContentResolver resolver = getContentResolver();
+
+        //ContentResolverを使ってURLオブジェクトを生成
+        _imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        //intentオブジェクト生成
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        //Extra情報として_imageUriを設定
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, _imageUri);
+
         //アクティビティ起動
         startActivityForResult(intent, 200);
     }
