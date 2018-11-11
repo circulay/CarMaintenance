@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 public class starting extends AppCompatActivity {
 
-    //初回起動の判断
+    //初回起動の判断をする
 
     private final String data = "MAIN_SETTING";
     private final String dataIntPreTag = "dataIPT";
