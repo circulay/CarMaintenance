@@ -6,6 +6,8 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -38,6 +40,7 @@ public class InitialSetting extends AppCompatActivity  {
     //ストレージ保存画像URI格納
     private Uri _imageUri;
 
+    int _carId = -1;
 
 
     @Override
@@ -64,9 +67,6 @@ public class InitialSetting extends AppCompatActivity  {
 
         @Override
         public void onClick(View view) {
-            //入力欄のEditTextオブジェクトを取得
-            input_MakerName = findViewById(R.id.edit_MakerName);
-            input_CarName = findViewById(R.id.edit_CarName);
 
             //画面部品id取得
             int id = view.getId();
@@ -79,15 +79,54 @@ public class InitialSetting extends AppCompatActivity  {
 
                 //登録ボタン
                 case R.id.bt_SetRegist:
-                //入力された文字列を取得
-                    input_MakerNameStr = input_MakerName.getText().toString();
-                    input_CarNameStr = input_CarName.getText().toString();
+                    RegistButtonClick();
                     break;
             }
 
         }
     }
 
+    public void RegistButtonClick() {
+        //入力された文字列を取得
+        //入力欄のEditTextオブジェクトを取得
+        input_MakerName = findViewById(R.id.edit_MakerName);
+        input_CarName = findViewById(R.id.edit_CarName);
+
+        input_MakerNameStr = input_MakerName.getText().toString();
+        input_CarNameStr = input_CarName.getText().toString();
+
+        //データベースヘルパーオブジェクトの作成
+        DatabaseHelper helper = new DatabaseHelper(InitialSetting.this);
+
+        //データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+
+        try {
+            String sqlDelete ="DELETE FROM cardata WHERE _id = ?";
+
+            SQLiteStatement stmt = db.compileStatement(sqlDelete);
+
+            stmt.bindLong(1, _carId);
+            stmt.executeUpdateDelete();
+
+            String sqlInsert = "INSERT INTO cardata (_id, makername, carname) VALUES (?, ?, ?)";
+            stmt = db.compileStatement(sqlInsert);
+            //stmt.bindLong(1, _carID);
+            stmt.bindString(2, input_MakerNameStr);
+            stmt.bindString(3, input_CarNameStr);
+
+            stmt.executeInsert();
+        }
+        finally {
+            db.close();
+        }
+
+    }
+
+
+
+    //カメラとの連携
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //カメラアプリとの連携からの戻りでかつ撮影成功の場合
