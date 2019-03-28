@@ -30,17 +30,18 @@ public class InitialSetting extends AppCompatActivity  {
     //ボタン変数
     Button bt_SetRegist;
     Button bt_TakePic;
+    Button bt_CarDataShow;
 
     //文字入力変数
     EditText input_MakerName;
     EditText input_CarName;
-    String input_MakerNameStr;
-    String input_CarNameStr;
+    static String input_MakerNameStr;
+    static String input_CarNameStr;
 
     //ストレージ保存画像URI格納
     private Uri _imageUri;
 
-    int _carId = -1;
+    static int _carId = -1;
 
 
     @Override
@@ -51,6 +52,7 @@ public class InitialSetting extends AppCompatActivity  {
         //ボタンオブジェクト取得
         bt_SetRegist = (Button) findViewById(R.id.bt_SetRegist);
         bt_TakePic = (Button) findViewById(R.id.bt_TakePic);
+        bt_CarDataShow = (Button) findViewById(R.id.bt_CarDataShow);
 
         //リスナークラスのインスタンス作成
         SettingListener listener = new SettingListener();
@@ -58,7 +60,7 @@ public class InitialSetting extends AppCompatActivity  {
         //ボタンにリスナーを設定
         bt_SetRegist.setOnClickListener(listener);
         bt_TakePic.setOnClickListener(listener);
-
+        bt_CarDataShow.setOnClickListener(listener);
 
     }
 
@@ -79,14 +81,19 @@ public class InitialSetting extends AppCompatActivity  {
 
                 //登録ボタン
                 case R.id.bt_SetRegist:
-                    RegistButtonClick();
+                    saveButtonClick();
+                    break;
+
+                //車種データへの画面遷移ボタン
+                case R.id.bt_CarDataShow:
+                    moveCarData();
                     break;
             }
 
         }
     }
 
-    public void RegistButtonClick() {
+    public void saveButtonClick() {
         //入力された文字列を取得
         //入力欄のEditTextオブジェクトを取得
         input_MakerName = findViewById(R.id.edit_MakerName);
@@ -103,16 +110,16 @@ public class InitialSetting extends AppCompatActivity  {
 
 
         try {
-            String sqlDelete ="DELETE FROM cardata WHERE _id = ?";
+            String sqlDelete ="DELETE FROM basicData WHERE _id = ?";
 
             SQLiteStatement stmt = db.compileStatement(sqlDelete);
 
             stmt.bindLong(1, _carId);
             stmt.executeUpdateDelete();
 
-            String sqlInsert = "INSERT INTO cardata (_id, makername, carname) VALUES (?, ?, ?)";
+            String sqlInsert = "INSERT INTO basicData (_id, makername, carname) VALUES (?, ?, ?)";
             stmt = db.compileStatement(sqlInsert);
-            //stmt.bindLong(1, _carID);
+            stmt.bindLong(1, _carId);
             stmt.bindString(2, input_MakerNameStr);
             stmt.bindString(3, input_CarNameStr);
 
@@ -122,8 +129,16 @@ public class InitialSetting extends AppCompatActivity  {
             db.close();
         }
 
+        //保存ボタンタップ無効
+        //bt_SetRegist.setEnabled(false);
+
     }
 
+    //車種データトップ画面に遷移
+    public void moveCarData() {
+        Intent intent = new Intent(getApplication(), CarDataTop.class);
+        startActivity(intent);
+    }
 
 
     //カメラとの連携

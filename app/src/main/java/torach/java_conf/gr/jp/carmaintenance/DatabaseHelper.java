@@ -6,15 +6,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+
     //データベースファイル名
-    private static final String DATABASE_MAINTE = "carData.db";
+    private static final String DATABASE_NAME = "basicData.db";
 
     //バージョン情報の定数フィールド
     private static final int DATABASE_VERSION = 1;
 
     //コンストラクタ
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_MAINTE, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //テーブル作成用SQL文字列の作成
 
         StringBuilder sb = new StringBuilder();
-        sb.append("CREATE TABLE carBasicData (");
+        sb.append("CREATE TABLE basicData (");
         sb.append("_id INTEGER PRIMARY KEY,");
         sb.append("makerName TEXT,");
         sb.append("carName TEXT");

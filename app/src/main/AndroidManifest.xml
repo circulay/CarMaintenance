@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".starting"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".starting"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".InitialSetting" />
-        <activity android:name=".MaintenanceDataTop"></activity>
+        <activity android:name=".MaintenanceDataTop" />
+        <activity android:name=".CarDataTop"></activity>
     </application>
 
 </manifest>

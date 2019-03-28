@@ -9,6 +9,7 @@
     <string name="edit_CarName"></string>
     <string name="bt_SetRegist">登録する</string>
     <string name="bt_TakePic">カメラで撮影する</string>
+    <string name="bt_CarDataShow">クルマを選ぶ</string>
 
 
 </resources>
