@@ -13,6 +13,7 @@ public class DataListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_list);
 
+        //ツールバーの処理
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setLogo(R.mipmap.ic_launcher);
         setSupportActionBar(toolbar);
