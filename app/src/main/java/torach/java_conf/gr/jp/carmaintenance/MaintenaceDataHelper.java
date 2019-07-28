@@ -7,5 +7,6 @@ public class MaintenaceDataHelper extends SQLiteOpenHelper {
 private
     public
     void
+    int i = 2;
 
 }
