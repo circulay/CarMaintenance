@@ -4,14 +4,14 @@ import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toolbar;
+import android.view.KeyEvent;
 
-public class DataListActivity extends AppCompatActivity {
+public class MaintenanceDataShow extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_list);
+        setContentView(R.layout.activity_maintenance_data_show);
 
         //ツールバーの処理
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
@@ -22,5 +22,15 @@ public class DataListActivity extends AppCompatActivity {
         toolbarLayout.setExpandedTitleColor(Color.WHITE);
         toolbarLayout.setCollapsedTitleTextColor(Color.LTGRAY);
 
+    }
+
+
+    //バックボタン無効化（スプラッシュ画面に戻らない）
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

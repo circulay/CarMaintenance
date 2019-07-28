@@ -21,9 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".InitialSetting" />
-        <activity android:name=".MaintenanceDataTop" />
-        <activity android:name=".CarDataTop" />
-        <activity android:name=".DataListActivity"></activity>
+        <activity android:name=".CarDataShow" />
+        <activity android:name=".MaintenanceDataShow"></activity>
     </application>
 
 </manifest>

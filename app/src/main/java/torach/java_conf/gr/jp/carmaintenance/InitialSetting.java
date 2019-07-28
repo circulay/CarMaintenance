@@ -1,14 +1,12 @@
 package torach.java_conf.gr.jp.carmaintenance;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -103,7 +101,7 @@ public class InitialSetting extends AppCompatActivity  {
         input_CarNameStr = input_CarName.getText().toString();
 
         //データベースヘルパーオブジェクトの作成
-        DatabaseHelper helper = new DatabaseHelper(InitialSetting.this);
+        CarDataHelper helper = new CarDataHelper(InitialSetting.this);
 
         //データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -136,7 +134,7 @@ public class InitialSetting extends AppCompatActivity  {
 
     //車種データトップ画面に遷移
     public void moveCarData() {
-        Intent intent = new Intent(getApplication(), CarDataTop.class);
+        Intent intent = new Intent(getApplication(), CarDataShow.class);
         startActivity(intent);
     }
 

@@ -1,6 +1,5 @@
 package torach.java_conf.gr.jp.carmaintenance;
 
-import android.Manifest;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 
 import static torach.java_conf.gr.jp.carmaintenance.InitialSetting._carId;
 
-public class CarDataTop extends AppCompatActivity {
+public class CarDataShow extends AppCompatActivity {
 
     TextView textView;
     TextView textView3;
@@ -18,17 +17,17 @@ public class CarDataTop extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_data_top);
+        setContentView(R.layout.activity_car_data_show);
 
 
         textView = findViewById(R.id.textView);
         textView3 = findViewById(R.id.textView3);
 
-        DatabaseHelper helper = new DatabaseHelper(CarDataTop.this);
+        CarDataHelper helper = new CarDataHelper(CarDataShow.this);
         SQLiteDatabase db = helper.getWritableDatabase();
 
         try {
-            String sql = "Select * From basicData Where _id = " + _carId;
+            String sql = "Select * From carData Where _id = " + _carId;
             Cursor cursor = db.rawQuery(sql, null);
             String makerName = "";
             String carName = "";
