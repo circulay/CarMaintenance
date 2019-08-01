@@ -4,10 +4,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MaintenaceDataHelper extends SQLiteOpenHelper {
 
-private
-    public
-    void
-    int i = 2;
-    int a = 3;
+	public static final String TAG = "MaintenaceDataHelper";
+	public static final String DB_NAME = "MaintenanceData";
+	public static final int DB_VERSION = 1;
 
 }
