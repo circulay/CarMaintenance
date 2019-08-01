@@ -15,6 +15,7 @@ public class CarDataHelper extends SQLiteOpenHelper {
 
     //コンストラクタ
     public CarDataHelper(Context context) {
+
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
