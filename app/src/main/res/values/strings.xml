@@ -12,5 +12,15 @@
     <string name="bt_CarDataShow">クルマを選ぶ</string>
     <string name="toolbar_title">メンテナンス記録</string>
 
+    <string name="data_title">メンテナンス記録入力</string>
+    <string name="date_show">""</string>
+    <string name="date_title">日付</string>
+    <string name="category_title">メンテナンス種類選択</string>
+    <string name="price_title">料金</string>
+    <string name="notes_title">メモ</string>
+    <string name="bt_datePicker">選択する</string>
+    <string name="bt_saveData">保存する</string>
+
+
 
 </resources>

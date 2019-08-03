@@ -13,6 +13,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maintenance_data_show);
 
+        /*
         //ツールバーの処理
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setLogo(R.mipmap.ic_launcher);
@@ -21,6 +22,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
         toolbarLayout.setTitle(getString(R.string.toolbar_title));
         toolbarLayout.setExpandedTitleColor(Color.WHITE);
         toolbarLayout.setCollapsedTitleTextColor(Color.LTGRAY);
+        */
 
     }
 

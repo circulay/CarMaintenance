@@ -80,12 +80,15 @@ public class InitialSetting extends AppCompatActivity  {
                 //登録ボタン
                 case R.id.bt_SetRegist:
                     saveButtonClick();
+                    moveCarData();
                     break;
 
+                /*
                 //車種データへの画面遷移ボタン
                 case R.id.bt_CarDataShow:
                     moveCarData();
                     break;
+                */
             }
 
         }
@@ -108,14 +111,14 @@ public class InitialSetting extends AppCompatActivity  {
 
 
         try {
-            String sqlDelete ="DELETE FROM basicData WHERE _id = ?";
+            String sqlDelete ="DELETE FROM CarData WHERE _id = ?";
 
             SQLiteStatement stmt = db.compileStatement(sqlDelete);
 
             stmt.bindLong(1, _carId);
             stmt.executeUpdateDelete();
 
-            String sqlInsert = "INSERT INTO basicData (_id, makername, carname) VALUES (?, ?, ?)";
+            String sqlInsert = "INSERT INTO CarData (_id, makername, carname) VALUES (?, ?, ?)";
             stmt = db.compileStatement(sqlInsert);
             stmt.bindLong(1, _carId);
             stmt.bindString(2, input_MakerNameStr);
@@ -134,7 +137,7 @@ public class InitialSetting extends AppCompatActivity  {
 
     //車種データトップ画面に遷移
     public void moveCarData() {
-        Intent intent = new Intent(getApplication(), CarDataShow.class);
+        Intent intent = new Intent(getApplication(), InputMaintenanceData.class);
         startActivity(intent);
     }
 

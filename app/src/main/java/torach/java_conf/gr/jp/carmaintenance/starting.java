@@ -42,7 +42,7 @@ public class starting extends AppCompatActivity {
                 startActivity(intent1);
                 edit.putInt(dataIntPreTag, dataCount).apply();
             } else {
-                Intent intent2 = new Intent(starting.this, CarDataShow.class);
+                Intent intent2 = new Intent(starting.this, InputMaintenanceData.class);
                 startActivity(intent2);
                 edit.putInt(dataIntPreTag, dataCount).apply();
             }
