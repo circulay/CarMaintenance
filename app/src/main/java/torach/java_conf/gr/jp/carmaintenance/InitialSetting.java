@@ -137,7 +137,7 @@ public class InitialSetting extends AppCompatActivity  {
 
     //車種データトップ画面に遷移
     public void moveCarData() {
-        Intent intent = new Intent(getApplication(), InputMaintenanceData.class);
+        Intent intent = new Intent(getApplication(), MaintenanceDataShow.class);
         startActivity(intent);
     }
 

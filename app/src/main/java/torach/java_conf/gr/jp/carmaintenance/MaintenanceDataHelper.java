@@ -1,8 +1,12 @@
 package torach.java_conf.gr.jp.carmaintenance;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
+
+import java.util.ArrayList;
 
 public class MaintenanceDataHelper extends SQLiteOpenHelper {
 
@@ -15,11 +19,12 @@ public class MaintenanceDataHelper extends SQLiteOpenHelper {
     public static final String ROW_NOTES = "notes";
 
     //データベースファイル名とバージョン情報
-    private static final String DB_NAME = "maintenance.db";
+    public static final String DB_NAME = "maintenance.db";
     private static final int DB_VERSION = 1;
 
     //コンストラクタ
     public MaintenanceDataHelper(Context context) {
+
         super(context, DB_NAME, null, DB_VERSION);
     }
 
