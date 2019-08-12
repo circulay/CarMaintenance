@@ -13,25 +13,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 public class InputMaintenanceData extends AppCompatActivity {
 
-    public Button button_datePicker;
-    public Button button_saveData;
+    private Button button_datePicker;
+    private Button button_saveData;
 
-    public TextView date_picker;
-    public Spinner categoryItem;
-    public EditText priceData;
-    public EditText notesData;
+    private TextView date_picker;
+    private Spinner categoryItem;
+    private EditText priceData;
+    private EditText notesData;
 
-    public String date_picker_str;
-    public String category_str;
-    public String priceData_str;
-    public String notesData_str;
+    private String date_picker_str;
+    private String category_str;
+    private String priceData_str;
+    private String notesData_str;
 
-    public MaintenanceDataHelper helper;
+    private MaintenanceDataHelper helper = null;
+    private SQLiteDatabase db = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +65,13 @@ public class InputMaintenanceData extends AppCompatActivity {
         });
 
 
-        //DB作成
+        //DBヘルパーの準備
         helper = new MaintenanceDataHelper(getApplicationContext());
+        date_picker = findViewById(R.id.date_pickerShow);
+        categoryItem = findViewById(R.id.category_spinner);
+        priceData = findViewById(R.id.input_price);
+        notesData = findViewById(R.id.input_notes);
+
 
     }
 
@@ -92,28 +99,22 @@ public class InputMaintenanceData extends AppCompatActivity {
     //DBに保存する
     public void saveData() {
 
-        SQLiteDatabase db = helper.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        date_picker = findViewById(R.id.date_pickerShow);
-        categoryItem = findViewById(R.id.category_spinner);
-        priceData = findViewById(R.id.input_price);
-        notesData = findViewById(R.id.input_notes);
-
-
-        date_picker_str = date_picker.getText().toString();
-        category_str = (String) categoryItem.getSelectedItem();
-        priceData_str = priceData.getText().toString();
-        notesData_str = notesData.getText().toString();
-
         try {
+            db = helper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+
+            date_picker_str = date_picker.getText().toString();
+            category_str = (String) categoryItem.getSelectedItem();
+            priceData_str = priceData.getText().toString();
+            notesData_str = notesData.getText().toString();
+
             values.put("date", date_picker_str);
             values.put("category", category_str);
             values.put("price", priceData_str);
             values.put("notes", notesData_str);
 
             db.insert("maintenanceDB", null, values);
+            Toast.makeText(this, "データを登録しました。", Toast.LENGTH_SHORT).show();
         }
         finally{
             db.close();
