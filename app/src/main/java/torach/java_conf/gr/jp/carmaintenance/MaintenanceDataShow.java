@@ -2,16 +2,10 @@ package torach.java_conf.gr.jp.carmaintenance;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,22 +15,20 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import static torach.java_conf.gr.jp.carmaintenance.InitialSetting._carId;
-import static torach.java_conf.gr.jp.carmaintenance.MaintenanceDataHelper.DB_NAME;
-import static torach.java_conf.gr.jp.carmaintenance.MaintenanceDataHelper.ROW_ID;
 
 public class MaintenanceDataShow extends AppCompatActivity {
 
     private SimpleCursorAdapter adapter;
     private MaintenanceDataHelper helper;
     private Cursor cursor;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maintenance_data_show);
 
-        //FloatingActionButton
+        //FloatingActionButtonの設置
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +39,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
         });
 
 
+        //readData
         readData();
 
     }
@@ -54,7 +47,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
     //データ呼び出し
     public void readData() {
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView);
 
         helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -68,8 +61,6 @@ public class MaintenanceDataShow extends AppCompatActivity {
             //取得したカーソルをカーソル用のアダプターに設定する。
             cursor = db.query(MaintenanceDataHelper.TABLE_NAME, columns, null, null, null, null, null);
 
-            //cursor.moveToFirst();
-
             // データベースの項目を決める
             String[] from = new String[]{MaintenanceDataHelper.ROW_CATEGORY, MaintenanceDataHelper.ROW_NAME, MaintenanceDataHelper.ROW_PRICE};
             // layoutファイルの表示箇所を紐付け
@@ -79,14 +70,13 @@ public class MaintenanceDataShow extends AppCompatActivity {
             listView.setAdapter(adapter);
 
         } finally {
-            //cursor.close();
             db.close();
         }
     }
 
 
-
-    //オプションメニュー制御
+    //オプションメニューの制御
+    //表示
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // オプションメニューを作成する
@@ -94,6 +84,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //動作処理
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -107,6 +98,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //画面遷移
     //車種データ画面に遷移
     public void moveToCarDataShow() {
         Intent intent = new Intent(getApplication(), CarDataShow.class);
