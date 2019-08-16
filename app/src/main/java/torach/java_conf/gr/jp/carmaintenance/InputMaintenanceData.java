@@ -22,15 +22,15 @@ public class InputMaintenanceData extends AppCompatActivity {
     private Button button_datePicker;
     private Button button_saveData;
 
-    private TextView date_picker;
-    private Spinner categoryItem;
-    private EditText priceData;
-    private EditText notesData;
+    private TextView date_picker = null;
+    private Spinner categoryItem = null;
+    private EditText priceData = null;
+    private EditText notesData = null;
 
-    private String date_picker_str;
-    private String category_str;
-    private String priceData_str;
-    private String notesData_str;
+    private String date_picker_str = null;
+    private String category_str = null;
+    private String priceData_str = null;
+    private String notesData_str = null;
 
     private MaintenanceDataHelper helper = null;
     private SQLiteDatabase db = null;
@@ -66,12 +66,12 @@ public class InputMaintenanceData extends AppCompatActivity {
 
 
         //DBヘルパーの準備
-        helper = new MaintenanceDataHelper(getApplicationContext());
+        //helper = new MaintenanceDataHelper(getApplicationContext());
+        helper = new MaintenanceDataHelper(this);
         date_picker = findViewById(R.id.date_pickerShow);
         categoryItem = findViewById(R.id.category_spinner);
         priceData = findViewById(R.id.input_price);
         notesData = findViewById(R.id.input_notes);
-
 
     }
 
@@ -99,6 +99,12 @@ public class InputMaintenanceData extends AppCompatActivity {
     //DBに保存する
     public void saveData() {
 
+        /*
+        //未入力チェック
+        if (date_picker_str.isEmpty() || category_str.isEmpty() || priceData_str.isEmpty() || notesData_str.isEmpty()) {
+            button_saveData.setError("未入力のデータがあります");
+        }*/
+
         try {
             db = helper.getWritableDatabase();
             ContentValues values = new ContentValues();
@@ -108,13 +114,13 @@ public class InputMaintenanceData extends AppCompatActivity {
             priceData_str = priceData.getText().toString();
             notesData_str = notesData.getText().toString();
 
-            values.put("date", date_picker_str);
-            values.put("category", category_str);
-            values.put("price", priceData_str);
-            values.put("notes", notesData_str);
+                values.put("date", date_picker_str);
+                values.put("category", category_str);
+                values.put("price", priceData_str);
+                values.put("notes", notesData_str);
 
-            db.insert("maintenanceDB", null, values);
-            Toast.makeText(this, "データを登録しました。", Toast.LENGTH_SHORT).show();
+                db.insert("maintenanceDB", null, values);
+                Toast.makeText(this, "データを登録しました。", Toast.LENGTH_SHORT).show();
         }
         finally{
             db.close();

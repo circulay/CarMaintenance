@@ -6,22 +6,26 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+import java.util.ArrayList;
+import java.util.Random;
 
 
 public class MaintenanceDataShow extends AppCompatActivity {
 
-    private SimpleCursorAdapter adapter;
     private MaintenanceDataHelper helper;
     private Cursor cursor;
-    private ListView listView;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager manager;
+    private RecyclerView.Adapter adapter;
+    private ArrayList<ListItem> data;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,41 +43,71 @@ public class MaintenanceDataShow extends AppCompatActivity {
         });
 
 
-        //readData
+        //SQLiteデータベース読み込み
         readData();
 
+        RecyclerView.ItemDecoration itemDecoration =
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
+
     }
 
-    //データ呼び出し
+    //SQLite保存データ呼び込み
     public void readData() {
 
-        listView = (ListView) findViewById(R.id.listView);
+            try {
+                helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+                db = helper.getReadableDatabase();
 
-        helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
-        SQLiteDatabase db = helper.getReadableDatabase();
+                //テーブル内のデータを配列に渡す
+                String[] columns = {"date", "category", "price", "notes"};
 
-        try {
+                cursor = db.query("maintenanceDB", columns, null, null, null, null, null);
 
-            // テーブル内の全ての項目をString[]の配列columnsに渡す
-            String[] columns = new String[]{MaintenanceDataHelper.ROW_ID, MaintenanceDataHelper.ROW_CATEGORY, MaintenanceDataHelper.ROW_NAME, MaintenanceDataHelper.ROW_PRICE};
+                //cursor = db.rawQuery("SELECT _id, date, category, price FROM maintenanceDB", null);
 
-            // SELECT文を簡単にしてくれるメソッド "address":テーブル名, columns:項目,
-            //取得したカーソルをカーソル用のアダプターに設定する。
-            cursor = db.query(MaintenanceDataHelper.TABLE_NAME, columns, null, null, null, null, null);
+                if(cursor != null && cursor.getCount() > 0) {
+                    //int startPosition = cursor.getPosition();
+                    //cursor.moveToPosition(-1);
+                    //cursor.moveToFirst();
 
-            // データベースの項目を決める
-            String[] from = new String[]{MaintenanceDataHelper.ROW_CATEGORY, MaintenanceDataHelper.ROW_NAME, MaintenanceDataHelper.ROW_PRICE};
-            // layoutファイルの表示箇所を紐付け
-            int[] to = new int[]{R.id.content_Data, R.id.date_Data, R.id.price_Data};
-            // SimpleCursorAdapter(context, layout, cursorを渡す, データベースの項目取得, 紐付けする)
-            adapter = new SimpleCursorAdapter(this, R.layout.data_field, cursor, from, to, 0);
-            listView.setAdapter(adapter);
+                    data = new ArrayList<>();
 
-        } finally {
-            db.close();
-        }
+                    while (cursor.moveToNext()) {
+
+                        ListItem dataItem = new ListItem();
+
+                        dataItem.setId((new Random()).nextLong());
+                        dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
+                        dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
+                        dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
+                        dataItem.setNotes(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NOTES)));
+                        data.add(dataItem);
+                    }
+                    //cursor.moveToPosition(startPosition);
+                }
+
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+                db.close();
+            }
+
+        //リサイクルビューのレイアウト
+        recyclerView = (RecyclerView) findViewById(R.id.Recycle_View_Layout);
+        recyclerView.setHasFixedSize(true);
+
+        //レイアウトマネージャー作成
+        manager  = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
+
+        //アダプターをRecyclerManagerに設定
+        adapter = new ViewAdapter(data);
+        recyclerView.setAdapter(adapter);
+
     }
-
 
     //オプションメニューの制御
     //表示

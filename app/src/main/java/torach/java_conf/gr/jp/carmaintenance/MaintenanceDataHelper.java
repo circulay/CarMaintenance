@@ -46,14 +46,18 @@ public class MaintenanceDataHelper extends SQLiteOpenHelper {
                 + " TEXT"
                 + ");";
 
+
+    //データベースのバージョンアップ
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE);
     }
 
+    //データベースのバージョンアップ後のテーブル再作成
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS maintenanceDB");
+        onCreate(db);
     }
 
 
