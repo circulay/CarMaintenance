@@ -29,12 +29,15 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
     //ビューにデータを割り当てる・リストの項目の生成
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+
         ListItem dataSet = data.get(position);
 
         holder.category.setText(dataSet.getCategory());
         holder.date.setText(dataSet.getDate());
         holder.price.setText(dataSet.getPrice());
         holder.notes.setText(dataSet.getNotes());
+
+        //holder.id.getTag(dataSet.getId());
 
     }
 
@@ -51,5 +54,6 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         this.data = data;
         notifyDataSetChanged();
     }
+
 
 }

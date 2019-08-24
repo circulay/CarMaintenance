@@ -11,6 +11,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     TextView price;
     TextView notes;
 
+    //int id;
+
     ViewHolder(View itemView) {
 
         super(itemView);
@@ -18,6 +20,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         this.date = itemView.findViewById(R.id.date_Data);
         this.price = itemView.findViewById(R.id.price_Data);
         this.notes = itemView.findViewById(R.id.notes_Data);
+
+        //this.id = itemView.getTag()
+
     }
 
 }
