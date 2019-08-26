@@ -16,23 +16,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Random;
-
-import static torach.java_conf.gr.jp.carmaintenance.MaintenanceDataHelper.ROW_ID;
-import static torach.java_conf.gr.jp.carmaintenance.MaintenanceDataHelper.TABLE_NAME;
-
 
 public class MaintenanceDataShow extends AppCompatActivity {
 
-    private MaintenanceDataHelper helper;
-    private Cursor cursor;
     private RecyclerView recyclerView;
-    private LinearLayoutManager manager;
     private RecyclerView.Adapter adapter;
+    private LinearLayoutManager manager;
     private ArrayList<ListItem> data;
     private SQLiteDatabase db;
-
-    protected int positionDelete;
 
 
     @Override
@@ -54,9 +45,11 @@ public class MaintenanceDataShow extends AppCompatActivity {
         //SQLiteデータベース読み込み
         readData();
 
+        //区切り線
         RecyclerView.ItemDecoration itemDecoration =
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
+
 
         //スワイプ削除読み出し
         listsSwipe();
@@ -66,12 +59,15 @@ public class MaintenanceDataShow extends AppCompatActivity {
     //SQLite保存データ呼び込み
     public void readData() {
 
-            try {
-                helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
-                db = helper.getReadableDatabase();
+        //テーブル内のデータを配列に渡す
+        String[] columns = {"_id", "date", "category", "price", "notes"};
 
-                //テーブル内のデータを配列に渡す
-                String[] columns = {"date", "category", "price", "notes"};
+        Cursor cursor;
+
+
+            try {
+                MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+                db = helper.getReadableDatabase();
 
                 cursor = db.query("maintenanceDB", columns, null, null, null, null, null);
 
@@ -83,8 +79,9 @@ public class MaintenanceDataShow extends AppCompatActivity {
 
                         ListItem dataItem = new ListItem();
 
-                        //dataItem.setId(cursor.getInt(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
-                        //dataItem.setId((new Random()).nextLong());
+                        dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
+                        //long idd = cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID));
+                        //dataItem.setId(String.valueOf(idd));
 
                         dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                         dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
@@ -95,6 +92,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
                 }
 
             } finally {
+                cursor = db.query("maintenanceDB", columns, null, null, null, null, null);
                 if (cursor != null) {
                     cursor.close();
                 }
@@ -116,22 +114,42 @@ public class MaintenanceDataShow extends AppCompatActivity {
 
     }
 
+    //ItemTouchHelper.Simpleを使ったリストのスワイプ削除
+    public void listsSwipe() {
+        ItemTouchHelper.SimpleCallback mIth = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-    //データの削除
-    /*private void deleteDataRecord() {
-        db.delete(MaintenanceDataHelper.TABLE_NAME, MaintenanceDataHelper.ROW_ID + "=" + positionDelete, null);
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        return false;
+                    }
 
-        try {
-            helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
-            db = helper.getReadableDatabase();
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                        final int position = viewHolder.getAdapterPosition();
+                        long id = adapter.getItemId(position);
+                        data.remove(position);
+                        adapter.notifyDataSetChanged();
 
-            db.execSQL("DELETE FROM maintenanceDB WHERE _id = positionDelete");
-        }
-        finally {
-            db.close();
-        }
-    }*/
 
+                        try {
+
+                            MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+                            db = helper.getWritableDatabase();
+
+                            //db.delete(MaintenanceDataHelper.TABLE_NAME, MaintenanceDataHelper.ROW_ID + "= ?", new String[]{String.valueOf(id)});
+                            db.delete("maintenanceDB", "_id=?", new String[]{String.valueOf(id)});
+                        }
+                        finally {
+                            db.close();
+                        }
+
+                    }
+
+                };
+
+        new ItemTouchHelper(mIth).attachToRecyclerView(recyclerView);
+
+    }
 
 
     //オプションメニューの制御
@@ -174,50 +192,5 @@ public class MaintenanceDataShow extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    //ItemTouchHelper.Simpleを使ったリストのスワイプ削除
-    protected void listsSwipe() {
-        ItemTouchHelper mIth = new ItemTouchHelper(
-                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-
-                    @Override
-                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                        //final int fromPos = viewHolder.getAdapterPosition();
-                        //final int toPos = target.getAdapterPosition();
-                        //adapter.notifyItemMoved(fromPos, toPos);// move item in `fromPos` to `toPos` in adapter.
-                        return false;// true if moved, false otherwise
-                    }
-
-                    @Override
-                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                        final int position = viewHolder.getAdapterPosition();
-                        data.remove(position);
-                        adapter.notifyItemRemoved(position);
-
-                        positionDelete = position;
-
-                        //int id = (int) viewHolder.itemView.getTag();
-
-                        try {
-                            //helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
-                            db = helper.getWritableDatabase();
-
-                            //db.execSQL("DELETE FROM maintenanceDB WHERE _id = positionDelete null");
-                            db.delete(TABLE_NAME, ROW_ID + "="+ positionDelete, null);
-
-                        }
-                        finally {
-                            db.close();
-                        }
-
-
-                        //deleteDataRecord();
-
-                        adapter.notifyDataSetChanged();
-                    }
-
-                });
-                    mIth.attachToRecyclerView(recyclerView);
-
-    }
 
 }

@@ -1,12 +1,9 @@
 package torach.java_conf.gr.jp.carmaintenance;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
 
-import java.util.ArrayList;
 
 public class MaintenanceDataHelper extends SQLiteOpenHelper {
 
@@ -59,8 +56,6 @@ public class MaintenanceDataHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS maintenanceDB");
         onCreate(db);
     }
-
-
 
 }
 

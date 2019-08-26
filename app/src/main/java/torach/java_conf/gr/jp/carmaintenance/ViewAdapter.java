@@ -12,6 +12,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private ArrayList<ListItem> data;
 
+
     //コンストラクター
     public ViewAdapter(ArrayList<ListItem> data) {
         this.data = data;
@@ -32,28 +33,38 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         ListItem dataSet = data.get(position);
 
+        //holder.id.setText(dataSet.getId());
         holder.category.setText(dataSet.getCategory());
         holder.date.setText(dataSet.getDate());
         holder.price.setText(dataSet.getPrice());
         holder.notes.setText(dataSet.getNotes());
-
-        //holder.id.getTag(dataSet.getId());
-
     }
 
     //データ項目数を取得
     @Override
     public int getItemCount()
     {
-        return this.data == null ? 0 : this.data.size();
+        return data == null ? 0 : data.size();
+    }
+
+   /*
+    @Override
+    public boolean hasStableIds () {
+        return true;
+    }*/
+
+    @Override
+    public long getItemId(int position) {
+        return data.get(position).getId();
     }
 
 
 
-    public void updataList(ArrayList<ListItem> data) {
-        this.data = data;
+    /*
+    //リストのアイテム削除
+    public void removeItem(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
         notifyDataSetChanged();
-    }
-
-
+    }*/
 }
