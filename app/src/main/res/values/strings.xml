@@ -27,4 +27,8 @@
     <string name="menu_Item4">メンテナンス記録</string>
     <string name="menu_Item5">車種データ</string>
 
+    <string name="update_data_title">メンテナンス記録編集</string>
+    <string name="bt_updateDate">更新する</string>
+
+
 </resources>

@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InputMaintenanceData">
+    tools:context=".EditMaintenanceData">
 
     <TextView
-        android:id="@+id/data_title"
+        android:id="@+id/update_data_title"
         android:layout_width="245dp"
         android:layout_height="35dp"
         android:layout_marginStart="93dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="93dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/data_title"
+        android:text="@string/update_data_title"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/date_title"
+        android:id="@+id/update_date_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -40,7 +40,7 @@
         app:layout_constraintVertical_bias="0.134" />
 
     <TextView
-        android:id="@+id/category_title"
+        android:id="@+id/update_category_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -57,7 +57,7 @@
         app:layout_constraintVertical_bias="0.261" />
 
     <TextView
-        android:id="@+id/price_title"
+        android:id="@+id/update_price_title"
         android:layout_width="38dp"
         android:layout_height="26dp"
         android:layout_marginStart="40dp"
@@ -73,7 +73,7 @@
         app:layout_constraintVertical_bias="0.413" />
 
     <TextView
-        android:id="@+id/notes_title"
+        android:id="@+id/update_notes_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -90,7 +90,7 @@
         app:layout_constraintVertical_bias="0.573" />
 
     <EditText
-        android:id="@+id/input_notes"
+        android:id="@+id/update_notes"
         android:layout_width="302dp"
         android:layout_height="89dp"
         android:layout_marginStart="8dp"
@@ -112,14 +112,14 @@
         app:layout_constraintVertical_bias="0.724" />
 
     <Button
-        android:id="@+id/bt_saveData"
+        android:id="@+id/bt_updateData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="59dp"
-        android:text="@string/bt_saveData"
+        android:text="@string/bt_updateDate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -128,7 +128,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Spinner
-        android:id="@+id/category_spinner"
+        android:id="@+id/update_category_spinner"
         android:layout_width="143dp"
         android:layout_height="30dp"
         android:entries="@array/category_list"
@@ -140,7 +140,7 @@
         app:layout_constraintVertical_bias="0.331" />
 
     <EditText
-        android:id="@+id/input_price"
+        android:id="@+id/update_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
