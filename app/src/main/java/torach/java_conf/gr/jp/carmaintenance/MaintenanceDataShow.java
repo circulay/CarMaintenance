@@ -151,6 +151,177 @@ public class MaintenanceDataShow extends AppCompatActivity {
 
     }
 
+    //修理データ抽出
+    public void selectRepairData() {
+
+        //テーブル内のデータを配列に渡す
+        String[] columns = {"_id", "date", "category", "price", "notes"};
+
+        Cursor cursor;
+
+
+        try {
+            MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+            db = helper.getReadableDatabase();
+
+            cursor = db.query("maintenanceDB", columns, "category = ?", new String[]{"修理"}, null, null, null, null);
+
+            if(cursor != null && cursor.getCount() > 0) {
+
+                data = new ArrayList<>();
+
+                while (cursor.moveToNext()) {
+
+                    ListItem dataItem = new ListItem();
+
+                    dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
+                    //long idd = cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID));
+                    //dataItem.setId(String.valueOf(idd));
+
+                    dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
+                    dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
+                    dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
+                    dataItem.setNotes(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NOTES)));
+                    data.add(dataItem);
+                }
+            }
+
+        } finally {
+            cursor = db.query("maintenanceDB", columns, "category = ?", new String[]{"修理"}, null, null, null, null);
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        //リサイクルビューのレイアウト
+        recyclerView = (RecyclerView) findViewById(R.id.Recycle_View_Layout);
+        recyclerView.setHasFixedSize(true);
+
+        //レイアウトマネージャー作成
+        manager  = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
+
+        //アダプターをRecyclerManagerに設定
+        adapter = new ViewAdapter(data);
+        recyclerView.setAdapter(adapter);
+    }
+
+    //車検データ抽出
+    public void selectCheckData() {
+
+        //テーブル内のデータを配列に渡す
+        String[] columns = {"_id", "date", "category", "price", "notes"};
+
+        Cursor cursor;
+
+
+        try {
+            MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+            db = helper.getReadableDatabase();
+
+            cursor = db.query("maintenanceDB", columns, "category = ?", new String[]{"車検"}, null, null, null, null);
+
+            if(cursor != null && cursor.getCount() > 0) {
+
+                data = new ArrayList<>();
+
+                while (cursor.moveToNext()) {
+
+                    ListItem dataItem = new ListItem();
+
+                    dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
+                    //long idd = cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID));
+                    //dataItem.setId(String.valueOf(idd));
+
+                    dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
+                    dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
+                    dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
+                    dataItem.setNotes(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NOTES)));
+                    data.add(dataItem);
+                }
+            }
+
+        } finally {
+            cursor = db.query("maintenanceDB", columns, "category = ?", new String[]{"車検"}, null, null, null, null);
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        //リサイクルビューのレイアウト
+        recyclerView = (RecyclerView) findViewById(R.id.Recycle_View_Layout);
+        recyclerView.setHasFixedSize(true);
+
+        //レイアウトマネージャー作成
+        manager  = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
+
+        //アダプターをRecyclerManagerに設定
+        adapter = new ViewAdapter(data);
+        recyclerView.setAdapter(adapter);
+    }
+
+    //事故データ抽出
+    public void selectAccidentData() {
+
+        //テーブル内のデータを配列に渡す
+        String[] columns = {"_id", "date", "category", "price", "notes"};
+
+        Cursor cursor;
+
+
+        try {
+            MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+            db = helper.getReadableDatabase();
+
+            cursor = db.query("maintenanceDB", columns, "category = ?", new String[]{"事故"}, null, null, null, null);
+
+            if(cursor != null && cursor.getCount() > 0) {
+
+                data = new ArrayList<>();
+
+                while (cursor.moveToNext()) {
+
+                    ListItem dataItem = new ListItem();
+
+                    dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
+                    //long idd = cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID));
+                    //dataItem.setId(String.valueOf(idd));
+
+                    dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
+                    dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
+                    dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
+                    dataItem.setNotes(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NOTES)));
+                    data.add(dataItem);
+                }
+            }
+
+        } finally {
+            cursor = db.query("maintenanceDB", columns, "category = ?", new String[]{"事故"}, null, null, null, null);
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        //リサイクルビューのレイアウト
+        recyclerView = (RecyclerView) findViewById(R.id.Recycle_View_Layout);
+        recyclerView.setHasFixedSize(true);
+
+        //レイアウトマネージャー作成
+        manager  = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
+
+        //アダプターをRecyclerManagerに設定
+        adapter = new ViewAdapter(data);
+        recyclerView.setAdapter(adapter);
+    }
+
 
     //オプションメニューの制御
     //表示
@@ -169,6 +340,18 @@ public class MaintenanceDataShow extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_Item5:
                 moveToCarDataShow();
+                break;
+            case R.id.menu_Item6:
+                selectRepairData();
+                break;
+            case R.id.menu_Item7:
+                selectCheckData();
+                break;
+            case R.id.menu_Item8:
+                selectAccidentData();
+                break;
+            case R.id.menu_Item9:
+                readData();
                 break;
         }
 

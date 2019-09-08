@@ -26,6 +26,10 @@
     <string name="menu_Item3">初期設定</string>
     <string name="menu_Item4">メンテナンス記録</string>
     <string name="menu_Item5">車種データ</string>
+    <string name="menu_Item6">修理データのみ</string>
+    <string name="menu_Item7">車検データのみ</string>
+    <string name="menu_Item8">事故データのみ</string>
+    <string name="menu_Item9">全データの表示</string>
 
     <string name="update_data_title">メンテナンス記録編集</string>
     <string name="bt_updateDate">更新する</string>
