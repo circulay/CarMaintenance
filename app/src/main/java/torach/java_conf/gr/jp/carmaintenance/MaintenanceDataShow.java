@@ -3,7 +3,15 @@ package torach.java_conf.gr.jp.carmaintenance;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -116,6 +124,9 @@ public class MaintenanceDataShow extends AppCompatActivity {
 
     //ItemTouchHelper.Simpleを使ったリストのスワイプ削除
     public void listsSwipe() {
+
+        final Drawable deleteIcon = ContextCompat.getDrawable(this, R.drawable.ic_swipe_delete);
+
         ItemTouchHelper.SimpleCallback mIth = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
                     @Override
@@ -145,11 +156,42 @@ public class MaintenanceDataShow extends AppCompatActivity {
 
                     }
 
+                    @Override
+                    public void onChildDraw (Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                        super.onChildDraw(c, recyclerView, viewHolder, dX, dY,actionState, isCurrentlyActive);
+
+                        View itemView =  viewHolder.itemView;
+
+                        //キャンセル
+                        if (dX == 0f && isCurrentlyActive) {
+                            clearCanvas(c, itemView.getRight() + (int) dX, itemView.getTop(), itemView.getRight(), itemView.getBottom());
+                            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, false);
+                            return;
+                        }
+
+                        ColorDrawable background = new ColorDrawable();
+                        background.setColor(Color.parseColor("#fffacd"));
+                        background.setBounds(itemView.getRight() + (int) dX, itemView.getTop(), itemView.getRight(), itemView.getBottom());
+                        background.draw(c);
+
+                        int deleteIconTop = itemView.getTop() + (itemView.getHeight() - deleteIcon.getIntrinsicHeight()) / 2;
+                        int deleteIconMargin = (itemView.getHeight() - deleteIcon.getIntrinsicHeight()) / 2;
+                        int deleteIconLeft = itemView.getRight() - deleteIconMargin - deleteIcon.getIntrinsicWidth();
+                        int deleteIconRight = itemView.getRight() - deleteIconMargin;
+                        int deleteIconBottom = deleteIconTop +  deleteIcon.getIntrinsicHeight();
+
+                        deleteIcon.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom);
+                        deleteIcon.draw(c);
+                    }
+
+
                 };
 
         new ItemTouchHelper(mIth).attachToRecyclerView(recyclerView);
 
     }
+
 
     //修理データ抽出
     public void selectRepairData() {
@@ -356,6 +398,14 @@ public class MaintenanceDataShow extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    //Canvas
+    private void clearCanvas(Canvas c, int left, int top, int right, int bottom) {
+        Paint paint = new Paint();
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        c.drawRect(left, top, right, bottom, paint);
     }
 
     //画面遷移
