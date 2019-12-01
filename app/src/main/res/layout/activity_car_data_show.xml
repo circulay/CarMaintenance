@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CarDataShow">
+    tools:context=".CarDataShow"
+    android:background="@drawable/initial_setting_back">
 
     <TextView
         android:id="@+id/text_CarMaker"
@@ -15,14 +16,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text=""
+        android:textColor="#727171"
         android:textSize="25sp"
-        android:textColor="#FF8C00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.111" />
 
     <TextView
         android:id="@+id/text_CarName"
@@ -33,31 +34,30 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text=""
+        android:textColor="#727171"
         android:textSize="25sp"
-        android:textColor="#FF8C00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.359" />
+        app:layout_constraintVertical_bias="0.283" />
 
     <TextView
         android:id="@+id/text_LicenceNumber"
-        android:layout_width="280dp"
-        android:layout_height="150dp"
+        android:layout_width="292dp"
+        android:layout_height="113dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text=""
+        android:textColor="#727171"
         android:textSize="25sp"
-        android:textColor="#FF8C00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.382"
+        app:layout_constraintHorizontal_bias="0.669"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.709" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
