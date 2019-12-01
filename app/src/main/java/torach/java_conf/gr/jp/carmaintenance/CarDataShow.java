@@ -14,17 +14,19 @@ import static torach.java_conf.gr.jp.carmaintenance.InitialSetting._carId;
 
 public class CarDataShow extends AppCompatActivity {
 
-    TextView textView;
-    TextView textView3;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_data_show);
 
+        TextView text_CarMaker;
+        TextView text_CarName;
+        TextView text_LicenceNumber;
 
-        textView = findViewById(R.id.textView);
-        textView3 = findViewById(R.id.textView3);
+
+        text_CarMaker = findViewById(R.id.text_CarMaker);
+        text_CarName = findViewById(R.id.text_CarName);
+        text_LicenceNumber = findViewById(R.id.text_LicenceNumber);
 
         CarDataHelper helper = new CarDataHelper(CarDataShow.this);
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -34,16 +36,20 @@ public class CarDataShow extends AppCompatActivity {
             Cursor cursor = db.rawQuery(sql, null);
             String makerName = "";
             String carName = "";
+            String licenceNumber = "";
 
             while(cursor.moveToNext()) {
                 int idxMakerName = cursor.getColumnIndex("makerName");
                 int idxCarName = cursor.getColumnIndex("carName");
+                int idxLicenceNumber = cursor.getColumnIndex("licenceNumber");
                 makerName = cursor.getString(idxMakerName);
                 carName = cursor.getString(idxCarName);
+                licenceNumber = cursor.getString(idxLicenceNumber);
             }
 
-            textView.setText(makerName);
-            textView3.setText(carName);
+            text_CarMaker.setText(makerName);
+            text_CarName.setText(carName);
+            text_LicenceNumber.setText(licenceNumber);
         }
 
         finally {
@@ -77,7 +83,7 @@ public class CarDataShow extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //車種データ画面に遷移
+    //初期設定画面に遷移
     public void moveToInitialSetting() {
         Intent intent = new Intent(getApplication(), InitialSetting.class);
         startActivity(intent);

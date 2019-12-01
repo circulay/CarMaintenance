@@ -36,17 +36,18 @@
 
             <TextView
                 android:id="@+id/price_Data"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
+                android:gravity="right"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/notes_Data"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:textSize="18sp" />

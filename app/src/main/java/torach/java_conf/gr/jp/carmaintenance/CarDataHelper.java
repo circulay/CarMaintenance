@@ -27,7 +27,8 @@ public class CarDataHelper extends SQLiteOpenHelper {
         sb.append("CREATE TABLE carData (");
         sb.append("_id INTEGER PRIMARY KEY,");
         sb.append("makerName TEXT,");
-        sb.append("carName TEXT");
+        sb.append("carName TEXT,");
+        sb.append("licenceNumber TEXT");
         sb.append(");");
         String sql = sb.toString();
 

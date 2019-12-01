@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">Car Maintenance</string>
+    <string name="app_name">カーメモる</string>
     <string name="InitialSet">初期設定</string>
     <string name="InitialSetNote">車の基本情報を登録する</string>
+    <string name="Hint">次の画面から新規登録ができます。画面右下の「＋」をタップしてください。</string>
     <string name="MakerName">メーカー</string>
     <string name="CarName">車名</string>
-    <string name="CarImage">車の画像</string>
+    <string name="LicenceNumber">車のナンバー</string>
     <string name="edit_MakerName"></string>
     <string name="edit_CarName"></string>
     <string name="bt_SetRegist">登録する</string>
@@ -12,7 +13,7 @@
     <string name="bt_CarDataShow">クルマを選ぶ</string>
     <string name="toolbar_title">メンテナンス記録</string>
 
-    <string name="data_title">メンテナンス記録入力</string>
+    <string name="data_title">マイカーメモ</string>
     <string name="date_show">""</string>
     <string name="date_title">日付</string>
     <string name="category_title">内容</string>
@@ -26,12 +27,14 @@
     <string name="menu_Item3">初期設定</string>
     <string name="menu_Item4">メンテナンス記録</string>
     <string name="menu_Item5">車種データ</string>
-    <string name="menu_Item6">修理データのみ</string>
-    <string name="menu_Item7">車検データのみ</string>
-    <string name="menu_Item8">事故データのみ</string>
-    <string name="menu_Item9">全データの表示</string>
+    <string name="menu_Item6">給油データのみ</string>
+    <string name="menu_Item7">洗車データのみ</string>
+    <string name="menu_Item8">定期交換データのみ</string>
+    <string name="menu_Item9">故障・修理データのみ</string>
+    <string name="menu_Item10">車検・点検データのみ</string>
+    <string name="menu_Item11">全データの表示</string>
 
-    <string name="update_data_title">メンテナンス記録編集</string>
+    <string name="update_data_title">マイカーメモ</string>
     <string name="bt_updateDate">更新する</string>
 
 

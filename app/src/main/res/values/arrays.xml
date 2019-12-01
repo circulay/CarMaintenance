@@ -3,9 +3,11 @@
 <resources>
 <string-array name="category_list">
     <item>---(選択)---</item>
-    <item>車検</item>
-    <item>修理</item>
-    <item>事故</item>
+    <item>給油</item>
+    <item>洗車</item>
+    <item>定期交換</item>
+    <item>故障・修理</item>
+    <item>車検・点検</item>
 </string-array>
 
 </resources>

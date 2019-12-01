@@ -16,8 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-
 public class InputMaintenanceData extends AppCompatActivity {
 
     private Button button_datePicker;
@@ -96,12 +94,6 @@ public class InputMaintenanceData extends AppCompatActivity {
     //DBに保存する
     public void saveData() {
 
-        /*
-        //未入力チェック
-        if (date_picker_str.isEmpty() || category_str.isEmpty() || priceData_str.isEmpty() || notesData_str.isEmpty()) {
-            button_saveData.setError("未入力のデータがあります");
-        }*/
-
         try {
             db = helper.getWritableDatabase();
             ContentValues values = new ContentValues();
@@ -111,14 +103,33 @@ public class InputMaintenanceData extends AppCompatActivity {
             priceData_str = priceData.getText().toString();
             notesData_str = notesData.getText().toString();
 
+            int priceData_value;
+            String priceData_str2;
+
+
+            if(date_picker_str.equals("")) {
+                final TodayDate todayDate;
+                todayDate = new TodayDate();
+                date_picker_str = todayDate.today_Date;
+            }
+
+            if(priceData_str.equals("")) {
+                priceData_str2 = "";
+            } else {
+
+                priceData_value = Integer.parseInt(priceData_str);
+                priceData_str2 = String.format("%,d", priceData_value);
+            }
+
                 values.put("date", date_picker_str);
                 values.put("category", category_str);
-                values.put("price", priceData_str);
+                values.put("price", priceData_str2);
                 values.put("notes", notesData_str);
 
                 db.insert("maintenanceDB", null, values);
                 Toast.makeText(this, "データを登録しました。", Toast.LENGTH_SHORT).show();
-        }
+            }
+
         finally{
             db.close();
         }

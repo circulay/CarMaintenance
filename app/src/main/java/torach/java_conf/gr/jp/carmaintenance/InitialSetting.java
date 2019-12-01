@@ -13,6 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,17 +29,16 @@ public class InitialSetting extends AppCompatActivity  {
     //変数宣言
     //ボタン変数
     Button bt_SetRegist;
-    Button bt_TakePic;
-    Button bt_CarDataShow;
+
 
     //文字入力変数
     EditText input_MakerName;
     EditText input_CarName;
+    EditText input_LicenceNumber;
+
     static String input_MakerNameStr;
     static String input_CarNameStr;
-
-    //ストレージ保存画像URI格納
-    private Uri _imageUri;
+    static String input_LicenceNumberStr;
 
     static int _carId = -1;
 
@@ -49,16 +50,13 @@ public class InitialSetting extends AppCompatActivity  {
 
         //ボタンオブジェクト取得
         bt_SetRegist = (Button) findViewById(R.id.bt_SetRegist);
-        bt_TakePic = (Button) findViewById(R.id.bt_TakePic);
-        bt_CarDataShow = (Button) findViewById(R.id.bt_CarDataShow);
+
 
         //リスナークラスのインスタンス作成
         SettingListener listener = new SettingListener();
 
         //ボタンにリスナーを設定
         bt_SetRegist.setOnClickListener(listener);
-        bt_TakePic.setOnClickListener(listener);
-        bt_CarDataShow.setOnClickListener(listener);
 
     }
 
@@ -72,11 +70,6 @@ public class InitialSetting extends AppCompatActivity  {
             int id = view.getId();
 
             switch(id) {
-                //カメラ作動
-                case R.id.bt_TakePic:
-                    TakePictures();
-                    break;
-
                 //登録ボタン
                 case R.id.bt_SetRegist:
                     saveButtonClick();
@@ -99,9 +92,11 @@ public class InitialSetting extends AppCompatActivity  {
         //入力欄のEditTextオブジェクトを取得
         input_MakerName = findViewById(R.id.edit_MakerName);
         input_CarName = findViewById(R.id.edit_CarName);
+        input_LicenceNumber = findViewById(R.id.edit_LicenceNumber);
 
         input_MakerNameStr = input_MakerName.getText().toString();
         input_CarNameStr = input_CarName.getText().toString();
+        input_LicenceNumberStr = input_LicenceNumber.getText().toString();
 
         //データベースヘルパーオブジェクトの作成
         CarDataHelper helper = new CarDataHelper(InitialSetting.this);
@@ -118,11 +113,12 @@ public class InitialSetting extends AppCompatActivity  {
             stmt.bindLong(1, _carId);
             stmt.executeUpdateDelete();
 
-            String sqlInsert = "INSERT INTO CarData (_id, makername, carname) VALUES (?, ?, ?)";
+            String sqlInsert = "INSERT INTO CarData (_id, makername, carname, licencenumber) VALUES (?, ?, ?, ?)";
             stmt = db.compileStatement(sqlInsert);
             stmt.bindLong(1, _carId);
             stmt.bindString(2, input_MakerNameStr);
             stmt.bindString(3, input_CarNameStr);
+            stmt.bindString(4, input_LicenceNumberStr);
 
             stmt.executeInsert();
         }
@@ -143,7 +139,7 @@ public class InitialSetting extends AppCompatActivity  {
 
 
     //カメラとの連携
-    @Override
+    /*@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //カメラアプリとの連携からの戻りでかつ撮影成功の場合
         if(requestCode == 200 && resultCode == RESULT_OK) {
@@ -152,9 +148,9 @@ public class InitialSetting extends AppCompatActivity  {
             //フイールドの画像URIをImageViewに設定
             ivCamera.setImageURI(_imageUri);
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
     {
         if(requestCode == 2000 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
@@ -162,10 +158,10 @@ public class InitialSetting extends AppCompatActivity  {
             //再度カメラ起動
             TakePictures();
         }
-    }
+    }*/
 
 
-    public void TakePictures() {
+    /*public void TakePictures() {
         //Write_EXTERNAL_STORAGE許可あり
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
@@ -209,6 +205,42 @@ public class InitialSetting extends AppCompatActivity  {
 
         //アクティビティ起動
         startActivityForResult(intent, 200);
+    }*/
+
+    //オプションメニュー制御
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // オプションメニューを作成する
+        getMenuInflater().inflate(R.menu.option_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // オプションメニュー
+        switch (item.getItemId()){
+            case R.id.menu_Item1:
+                moveToCarDataShow();
+                break;
+            case R.id.menu_Item2:
+                moveToMaintenanceDataShow();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    //車種データ画面に遷移
+    public void moveToCarDataShow() {
+        Intent intent = new Intent(getApplication(), CarDataShow.class);
+        startActivity(intent);
+    }
+
+    //データ一覧画面に遷移
+    public void moveToMaintenanceDataShow() {
+        Intent intent = new Intent(getApplication(), MaintenanceDataShow.class);
+        startActivity(intent);
     }
 
     //バックボタン無効化（スプラッシュ画面に戻らない）
