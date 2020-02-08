@@ -37,5 +37,7 @@
     <string name="update_data_title">マイカーメモ</string>
     <string name="bt_updateDate">更新する</string>
 
+    <string name="ads_AppId">ca-app-pub-8672150310568733~8558217885</string>
+    <string name="ads_UnitId_Banner">ca-app-pub-8672150310568733/1712294851</string>
 
 </resources>

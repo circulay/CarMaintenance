@@ -49,7 +49,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
                 final int position = holder.getAdapterPosition();
                 long id = getItemId(position);
 
-                String obCategory = dataSet.getCategory();
+                //String obCategory = dataSet.getCategory();
 
                 //Spinner spinner = (Spinner) layout.findViewByID(R.id.category_spinner);
                 //String spinnerStr = (String) spinner.getSelectedItem();
@@ -61,7 +61,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
                 Intent intent = new Intent(context, EditMaintenanceData.class);
                 intent.putExtra("iPos", id);
-                intent.putExtra("iCategory", obCategory);
+                //intent.putExtra("iCategory", obCategory);
                 intent.putExtra("iDate", obDate);
                 intent.putExtra("iPrice", obPrice);
                 intent.putExtra("iNotes", obNotes);

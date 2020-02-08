@@ -21,6 +21,7 @@
         app:pressedTranslationZ="8dp"
         app:srcCompat="@android:drawable/ic_input_add" />
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,12 +31,26 @@
         android:paddingRight="16dp"
         android:paddingTop="16dp">
 
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="@string/ads_UnitId_Banner">
+        </com.google.android.gms.ads.AdView>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/Recycle_View_Layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
     </LinearLayout>
+
+
+
 
 </android.support.design.widget.CoordinatorLayout>
 

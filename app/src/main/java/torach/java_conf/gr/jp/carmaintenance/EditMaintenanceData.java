@@ -86,7 +86,8 @@ public class EditMaintenanceData extends AppCompatActivity {
         //onBindViewHolderのクリックイベントからpositionを受け取る
         Intent intent = getIntent();
 
-        //String obCategory = intent.getStringExtra("iCategory");
+        //Spinner obCategory = intent.getStringExtra("iCategory");
+
         String obDate = intent.getStringExtra("iDate");
         String obPrice = intent.getStringExtra("iPrice");
         String obNotes = intent.getStringExtra("iNotes");

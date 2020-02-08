@@ -26,6 +26,11 @@ import android.view.View;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
+
 import java.util.ArrayList;
 
 public class MaintenanceDataShow extends AppCompatActivity {
@@ -36,11 +41,24 @@ public class MaintenanceDataShow extends AppCompatActivity {
     private ArrayList<ListItem> data;
     private SQLiteDatabase db;
 
+    private AdView mAdView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maintenance_data_show);
+
+        //AdMob広告
+        MobileAds.initialize(this, getString(R.string.ads_AppId));
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+
+
 
         //FloatingActionButtonの設置
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -246,9 +264,6 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     ListItem dataItem = new ListItem();
 
                     dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
-                    //long idd = cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID));
-                    //dataItem.setId(String.valueOf(idd));
-
                     dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                     dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
                     dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
@@ -306,9 +321,6 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     ListItem dataItem = new ListItem();
 
                     dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
-                    //long idd = cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID));
-                    //dataItem.setId(String.valueOf(idd));
-
                     dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                     dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
                     dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
@@ -366,9 +378,6 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     ListItem dataItem = new ListItem();
 
                     dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
-                    //long idd = cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID));
-                    //dataItem.setId(String.valueOf(idd));
-
                     dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                     dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
                     dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
@@ -426,9 +435,6 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     ListItem dataItem = new ListItem();
 
                     dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
-                    //long idd = cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID));
-                    //dataItem.setId(String.valueOf(idd));
-
                     dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                     dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
                     dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
@@ -486,9 +492,6 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     ListItem dataItem = new ListItem();
 
                     dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
-                    //long idd = cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID));
-                    //dataItem.setId(String.valueOf(idd));
-
                     dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                     dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
                     dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));

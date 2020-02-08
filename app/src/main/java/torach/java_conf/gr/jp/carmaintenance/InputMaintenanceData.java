@@ -39,8 +39,6 @@ public class InputMaintenanceData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_maintenance_data);
 
-        //アクションバーに戻るを表示
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //リスナー設定
         SettingListener listener = new SettingListener();
