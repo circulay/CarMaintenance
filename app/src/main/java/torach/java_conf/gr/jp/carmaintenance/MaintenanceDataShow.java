@@ -536,6 +536,8 @@ public class MaintenanceDataShow extends AppCompatActivity {
         String sql = "SELECT TOTAL(price) FROM maintenanceDB WHERE category LIKE '給油%';";
 
         Cursor cursor;
+
+        //
         //cursor = db.rawQuery(sql, new String[]{"給油"}, null);
         cursor = db.rawQuery(sql,null);
 

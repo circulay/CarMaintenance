@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "872982880791",
+    "firebase_url": "https://carmaintenance-50eb6.firebaseio.com",
+    "project_id": "carmaintenance-50eb6",
+    "storage_bucket": "carmaintenance-50eb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872982880791:android:c9d4cd75f9a3ba1fac7252",
+        "android_client_info": {
+          "package_name": "torach.java_conf.gr.jp.carmaintenance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872982880791-1aitehhh3endke9hrvqmq6lfdqtkel03.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "torach.java_conf.gr.jp.carmaintenance",
+            "certificate_hash": "a6d5ea6b370ad45714d697ec2de2b776943ea4e1"
+          }
+        },
+        {
+          "client_id": "872982880791-ah0uldf0669mbkaljvgbpds3pel91sac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8MuHG0klcIUMwo7jgCJ3NkIaXyfng0yM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872982880791-ah0uldf0669mbkaljvgbpds3pel91sac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
