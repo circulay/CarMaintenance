@@ -25,6 +25,7 @@ import android.view.View;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -43,6 +44,8 @@ public class MaintenanceDataShow extends AppCompatActivity {
 
     private AdView mAdView;
 
+    private TextView totalPrice = null;
+
 
 
     @Override
@@ -56,6 +59,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+        totalPrice = findViewById(R.id.textView);
 
 
 
@@ -523,6 +527,36 @@ public class MaintenanceDataShow extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    public void totalFuelPrice() {
+
+        MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+        db = helper.getReadableDatabase();
+
+        //String sql = ("SELECT category = ?, SUM(price) FROM maintenanceDB GROUP BY category = ?");
+        String sql = "SELECT TOTAL(price) FROM maintenanceDB WHERE category LIKE '給油%';";
+
+        Cursor cursor;
+        //cursor = db.rawQuery(sql, new String[]{"給油"}, null);
+        cursor = db.rawQuery(sql,null);
+
+        int total;
+
+        if(cursor.moveToFirst()) {
+            //total = cursor.getInt(cursor.getColumnIndex("price"));
+            total = cursor.getInt(0);
+
+            String total_price = String.valueOf(total);
+            totalPrice.setText(total_price);
+        }
+        cursor.close();
+        db.close();
+
+
+
+
+
+    }
+
 
     //オプションメニューの制御
     //表示
@@ -544,6 +578,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
                 break;
             case R.id.menu_Item6:
                 selectFuelData();
+                totalFuelPrice();
                 break;
             case R.id.menu_Item7:
                 selectWashData();
