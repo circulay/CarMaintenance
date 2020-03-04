@@ -554,11 +554,6 @@ public class MaintenanceDataShow extends AppCompatActivity {
         }
         cursor.close();
         db.close();
-
-
-
-
-
     }
 
 
