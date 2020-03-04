@@ -527,6 +527,8 @@ public class MaintenanceDataShow extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+
+    //給油金額の合計金額
     public void totalFuelPrice() {
 
         MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
