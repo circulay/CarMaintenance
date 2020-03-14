@@ -101,8 +101,8 @@ public class InputMaintenanceData extends AppCompatActivity {
             priceData_str = priceData.getText().toString();
             notesData_str = notesData.getText().toString();
 
-            int priceData_value;
-            String priceData_str2;
+            //金額を整数値に変換する
+            int priceData_value = Integer.parseInt(priceData_str);
 
 
             if(date_picker_str.equals("")) {
@@ -111,17 +111,10 @@ public class InputMaintenanceData extends AppCompatActivity {
                 date_picker_str = todayDate.today_Date;
             }
 
-            if(priceData_str.equals("")) {
-                priceData_str2 = "";
-            } else {
-
-                priceData_value = Integer.parseInt(priceData_str);
-                priceData_str2 = String.format("%,d", priceData_value);
-            }
 
                 values.put("date", date_picker_str);
                 values.put("category", category_str);
-                values.put("price", priceData_str2);
+                values.put("price", priceData_value);
                 values.put("notes", notesData_str);
 
                 db.insert("maintenanceDB", null, values);

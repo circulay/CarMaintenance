@@ -32,6 +32,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class MaintenanceDataShow extends AppCompatActivity {
@@ -120,7 +121,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
 
                         dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                         dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
-                        dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
+                        dataItem.setPrice(cursor.getInt(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
                         dataItem.setNotes(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NOTES)));
                         data.add(dataItem);
                     }
@@ -270,7 +271,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
                     dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                     dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
-                    dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
+                    dataItem.setPrice(cursor.getInt(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
                     dataItem.setNotes(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NOTES)));
                     data.add(dataItem);
                 }
@@ -327,7 +328,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
                     dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                     dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
-                    dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
+                    dataItem.setPrice(cursor.getInt(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
                     dataItem.setNotes(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NOTES)));
                     data.add(dataItem);
                 }
@@ -384,7 +385,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
                     dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                     dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
-                    dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
+                    dataItem.setPrice(cursor.getInt(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
                     dataItem.setNotes(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NOTES)));
                     data.add(dataItem);
                 }
@@ -441,7 +442,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
                     dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                     dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
-                    dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
+                    dataItem.setPrice(cursor.getInt(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
                     dataItem.setNotes(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NOTES)));
                     data.add(dataItem);
                 }
@@ -498,7 +499,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     dataItem.setId(cursor.getLong(cursor.getColumnIndex(MaintenanceDataHelper.ROW_ID)));
                     dataItem.setCategory(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_CATEGORY)));
                     dataItem.setDate(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NAME)));
-                    dataItem.setPrice(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
+                    dataItem.setPrice(cursor.getInt(cursor.getColumnIndex(MaintenanceDataHelper.ROW_PRICE)));
                     dataItem.setNotes(cursor.getString(cursor.getColumnIndex(MaintenanceDataHelper.ROW_NOTES)));
                     data.add(dataItem);
                 }
@@ -534,23 +535,19 @@ public class MaintenanceDataShow extends AppCompatActivity {
         MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
         db = helper.getReadableDatabase();
 
-        //String sql = ("SELECT category = ?, SUM(price) FROM maintenanceDB GROUP BY category = ?");
         String sql = "SELECT TOTAL(price) FROM maintenanceDB WHERE category LIKE '給油%';";
 
         Cursor cursor;
 
-        //
-        //cursor = db.rawQuery(sql, new String[]{"給油"}, null);
         cursor = db.rawQuery(sql,null);
 
         int total;
 
         if(cursor.moveToFirst()) {
-            //total = cursor.getInt(cursor.getColumnIndex("price"));
+            
             total = cursor.getInt(0);
 
-            String total_price = String.valueOf(total);
-            totalPrice.setText(total_price);
+            totalPrice.setText(NumberFormat.getCurrencyInstance().format((total)));
         }
         cursor.close();
         db.close();

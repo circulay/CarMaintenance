@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
@@ -38,7 +39,9 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         holder.category.setText(dataSet.getCategory());
         holder.date.setText(dataSet.getDate());
-        holder.price.setText(dataSet.getPrice());
+        //holder.price.setText(String.valueOf(dataSet.getPrice()));
+        holder.price.setText(NumberFormat.getCurrencyInstance().format((dataSet.getPrice())));
+
         holder.notes.setText(dataSet.getNotes());
 
         //クリックイベント
@@ -49,21 +52,19 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewHolder> {
                 final int position = holder.getAdapterPosition();
                 long id = getItemId(position);
 
-                //String obCategory = dataSet.getCategory();
-
-                //Spinner spinner = (Spinner) layout.findViewByID(R.id.category_spinner);
-                //String spinnerStr = (String) spinner.getSelectedItem();
                 String obDate = dataSet.getDate();
-                String obPrice = dataSet.getPrice();
+
+                int obPrice = dataSet.getPrice();
+                String obPrice_str = String.valueOf(obPrice);
+
                 String obNotes = dataSet.getNotes();
 
                 Context context = v.getContext();
 
                 Intent intent = new Intent(context, EditMaintenanceData.class);
                 intent.putExtra("iPos", id);
-                //intent.putExtra("iCategory", obCategory);
                 intent.putExtra("iDate", obDate);
-                intent.putExtra("iPrice", obPrice);
+                intent.putExtra("iPrice", obPrice_str);
                 intent.putExtra("iNotes", obNotes);
                 context.startActivity(intent);
             }

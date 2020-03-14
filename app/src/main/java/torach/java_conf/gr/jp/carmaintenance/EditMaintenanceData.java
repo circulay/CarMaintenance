@@ -93,7 +93,7 @@ public class EditMaintenanceData extends AppCompatActivity {
         String obNotes = intent.getStringExtra("iNotes");
 
         // 数値を表す文字列（3桁区切り) を 整数値（int型) に変換した上で、カンマなしの文字列に修正し直す
-        int obPrice_value;
+        /*int obPrice_value;
         String obPrice_str = null;
 
         try {
@@ -102,7 +102,7 @@ public class EditMaintenanceData extends AppCompatActivity {
             obPrice_str = String.valueOf(obPrice_value);
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         TextView date_picker = findViewById(R.id.date_pickerShow);
@@ -111,7 +111,7 @@ public class EditMaintenanceData extends AppCompatActivity {
         EditText notesData = findViewById(R.id.update_notes);
 
         date_picker.setText(obDate);
-        priceData.setText(obPrice_str);
+        priceData.setText(obPrice);
         notesData.setText(obNotes);
 
     }
@@ -143,8 +143,8 @@ public class EditMaintenanceData extends AppCompatActivity {
 
             ContentValues values = new ContentValues();
 
-            int priceData_value;
-            String priceData_str2;
+
+            int priceData_value = Integer.parseInt(priceData_str);
 
 
             if(date_picker_str.equals("")) {
@@ -153,17 +153,10 @@ public class EditMaintenanceData extends AppCompatActivity {
                 date_picker_str = todayDate.today_Date;
             }
 
-            if(priceData_str.equals("")) {
-                priceData_str2 = "";
-            } else {
-
-                priceData_value = Integer.parseInt(priceData_str);
-                priceData_str2 = String.format("%,d", priceData_value);
-            }
 
             values.put("date", date_picker_str);
             values.put("category", category_str);
-            values.put("price", priceData_str2);
+            values.put("price", priceData_value);
             values.put("notes", notesData_str);
 
             db.update("maintenanceDB", values, "_id=?", new String[]{String.valueOf(id)});
