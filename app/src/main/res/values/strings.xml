@@ -9,7 +9,6 @@
     <string name="edit_MakerName"></string>
     <string name="edit_CarName"></string>
     <string name="bt_SetRegist">登録する</string>
-    <string name="bt_TakePic">カメラで撮影する</string>
     <string name="bt_CarDataShow">クルマを選ぶ</string>
     <string name="toolbar_title">メンテナンス記録</string>
 
@@ -21,6 +20,7 @@
     <string name="notes_title">メモ</string>
     <string name="bt_datePicker">選択する</string>
     <string name="bt_saveData">保存する</string>
+    <string name="totalPrice_title">合計金額</string>
 
     <string name="menu_Item1">車種データ</string>
     <string name="menu_Item2">メンテナンス記録</string>

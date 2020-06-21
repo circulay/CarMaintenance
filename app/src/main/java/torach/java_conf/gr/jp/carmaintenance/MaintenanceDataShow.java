@@ -60,7 +60,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        totalPrice = findViewById(R.id.textView);
+        totalPrice = findViewById(R.id.totalPriceShow);
 
 
 
@@ -134,6 +134,8 @@ public class MaintenanceDataShow extends AppCompatActivity {
                     cursor.close();
                 }
                 db.close();
+
+                totalAllPrice();
             }
 
         //リサイクルビューのレイアウト
@@ -553,6 +555,127 @@ public class MaintenanceDataShow extends AppCompatActivity {
         db.close();
     }
 
+    //洗車金額の合計金額
+    public void totalWashPrice() {
+
+        MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+        db = helper.getReadableDatabase();
+
+        String sql = "SELECT TOTAL(price) FROM maintenanceDB WHERE category LIKE '洗車%';";
+
+        Cursor cursor;
+
+        cursor = db.rawQuery(sql,null);
+
+        int total;
+
+        if(cursor.moveToFirst()) {
+
+            total = cursor.getInt(0);
+
+            totalPrice.setText(NumberFormat.getCurrencyInstance().format((total)));
+        }
+        cursor.close();
+        db.close();
+    }
+
+    //定期交換の合計金額
+    public void totalPartsChangePrice() {
+
+        MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+        db = helper.getReadableDatabase();
+
+        String sql = "SELECT TOTAL(price) FROM maintenanceDB WHERE category LIKE '定期交換%';";
+
+        Cursor cursor;
+
+        cursor = db.rawQuery(sql,null);
+
+        int total;
+
+        if(cursor.moveToFirst()) {
+
+            total = cursor.getInt(0);
+
+            totalPrice.setText(NumberFormat.getCurrencyInstance().format((total)));
+        }
+        cursor.close();
+        db.close();
+    }
+
+    //修理の合計金額
+    public void totalRepairPrice() {
+
+        MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+        db = helper.getReadableDatabase();
+
+        String sql = "SELECT TOTAL(price) FROM maintenanceDB WHERE category LIKE '故障・修理%';";
+
+        Cursor cursor;
+
+        cursor = db.rawQuery(sql,null);
+
+        int total;
+
+        if(cursor.moveToFirst()) {
+
+            total = cursor.getInt(0);
+
+            totalPrice.setText(NumberFormat.getCurrencyInstance().format((total)));
+        }
+        cursor.close();
+        db.close();
+    }
+
+    //車検・点検の合計金額
+    public void totalCheckPrice() {
+
+        MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+        db = helper.getReadableDatabase();
+
+        String sql = "SELECT TOTAL(price) FROM maintenanceDB WHERE category LIKE '車検・点検%';";
+
+        Cursor cursor;
+
+        cursor = db.rawQuery(sql,null);
+
+        int total;
+
+        if(cursor.moveToFirst()) {
+
+            total = cursor.getInt(0);
+
+            totalPrice.setText(NumberFormat.getCurrencyInstance().format((total)));
+        }
+        cursor.close();
+        db.close();
+    }
+
+    //車検・点検の合計金額
+    public void totalAllPrice() {
+
+        MaintenanceDataHelper helper = new MaintenanceDataHelper(MaintenanceDataShow.this);
+        db = helper.getReadableDatabase();
+
+        String sql = "SELECT TOTAL(price) FROM maintenanceDB";
+
+        Cursor cursor;
+
+        cursor = db.rawQuery(sql,null);
+
+        int total;
+
+        if(cursor.moveToFirst()) {
+
+            total = cursor.getInt(0);
+
+            totalPrice.setText(NumberFormat.getCurrencyInstance().format((total)));
+        }
+        cursor.close();
+        db.close();
+    }
+
+
 
     //オプションメニューの制御
     //表示
@@ -578,15 +701,19 @@ public class MaintenanceDataShow extends AppCompatActivity {
                 break;
             case R.id.menu_Item7:
                 selectWashData();
+                totalWashPrice();
                 break;
             case R.id.menu_Item8:
                 selectPartsChangeData();
+                totalPartsChangePrice();
                 break;
             case R.id.menu_Item9:
                 selectRepairData();
+                totalRepairPrice();
                 break;
             case R.id.menu_Item10:
                 selectCheckData();
+                totalCheckPrice();
                 break;
             case R.id.menu_Item11:
                 readData();
