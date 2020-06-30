@@ -151,6 +151,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
         adapter = new ViewAdapter(data);
         recyclerView.setAdapter(adapter);
 
+
     }
 
     //ItemTouchHelper.Simpleを使ったリストのスワイプ削除
@@ -300,6 +301,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
         //アダプターをRecyclerManagerに設定
         adapter = new ViewAdapter(data);
         recyclerView.setAdapter(adapter);
+
     }
 
     //洗車データ抽出
@@ -357,6 +359,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
         //アダプターをRecyclerManagerに設定
         adapter = new ViewAdapter(data);
         recyclerView.setAdapter(adapter);
+
     }
 
     //定期交換データ抽出
