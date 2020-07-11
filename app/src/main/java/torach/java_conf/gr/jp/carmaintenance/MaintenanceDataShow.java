@@ -90,6 +90,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
 
     }
 
+
     //SQLite保存データ呼び込み
     public void readData() {
 
@@ -195,6 +196,7 @@ public class MaintenanceDataShow extends AppCompatActivity {
                             }
                             finally {
                                 db.close();
+                                readData();
                             }
 
                          }});
@@ -246,8 +248,12 @@ public class MaintenanceDataShow extends AppCompatActivity {
     }
 
 
+
+
     //給油データ抽出
     public void selectFuelData() {
+
+        removeItems();
 
         //テーブル内のデータを配列に渡す
         String[] columns = {"_id", "date", "category", "price", "notes"};
@@ -307,6 +313,8 @@ public class MaintenanceDataShow extends AppCompatActivity {
     //洗車データ抽出
     public void selectWashData() {
 
+        removeItems();
+
         //テーブル内のデータを配列に渡す
         String[] columns = {"_id", "date", "category", "price", "notes"};
 
@@ -365,6 +373,8 @@ public class MaintenanceDataShow extends AppCompatActivity {
     //定期交換データ抽出
     public void selectPartsChangeData() {
 
+        removeItems();
+
         //テーブル内のデータを配列に渡す
         String[] columns = {"_id", "date", "category", "price", "notes"};
 
@@ -422,6 +432,8 @@ public class MaintenanceDataShow extends AppCompatActivity {
     //故障・修理データ抽出
     public void selectRepairData() {
 
+        removeItems();
+
         //テーブル内のデータを配列に渡す
         String[] columns = {"_id", "date", "category", "price", "notes"};
 
@@ -478,6 +490,8 @@ public class MaintenanceDataShow extends AppCompatActivity {
 
     //車検・点検データ抽出
     public void selectCheckData() {
+
+        removeItems();
 
         //テーブル内のデータを配列に渡す
         String[] columns = {"_id", "date", "category", "price", "notes"};
@@ -676,6 +690,12 @@ public class MaintenanceDataShow extends AppCompatActivity {
         }
         cursor.close();
         db.close();
+    }
+
+
+    public void removeItems() {
+        data.clear();
+        recyclerView.getAdapter().notifyDataSetChanged();
     }
 
 

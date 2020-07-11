@@ -1,12 +1,13 @@
 package torach.java_conf.gr.jp.carmaintenance;
 
-import android.support.v4.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
-
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Date;
 
 public class InputMaintenanceData extends AppCompatActivity {
 
@@ -26,7 +29,7 @@ public class InputMaintenanceData extends AppCompatActivity {
     private EditText priceData = null;
     private EditText notesData = null;
 
-    private String date_picker_str = null;
+    private String date_picker_str;
     private String category_str = null;
     private String priceData_str = null;
     private String notesData_str = null;
@@ -56,6 +59,11 @@ public class InputMaintenanceData extends AppCompatActivity {
         priceData = findViewById(R.id.input_price);
         notesData = findViewById(R.id.input_notes);
 
+        Date date = new Date();
+        SimpleDateFormat dateShow = new SimpleDateFormat("yyyy'/'MM'/'dd");
+        date_picker_str = dateShow.format(date);
+        date_picker.setText(date_picker_str);
+
     }
 
     //ボタンクリック制御
@@ -68,7 +76,7 @@ public class InputMaintenanceData extends AppCompatActivity {
             int id = view.getId();
 
             switch(id) {
-                //カメラ作動
+                //ボタン処理
                 case R.id.bt_saveData:
                     saveData();
                     moveToMaintenanceDataShow();
